@@ -115,9 +115,21 @@ namespace SamuraiStore.Controllers
         public ActionResult DeleteConfirmed(int id)
         {            
             Reserve reserve = db.Reserves.Find(id);
-            db.Reserves.Remove(reserve);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var transaction = Transaction.Fetch(reserve.TransactionRef);
+            var voidedTr = transaction.Void();
+
+            if (voidedTr.ProcessorResponse.Success)
+            {
+                reserve.VoidingRef = voidedTr.ReferenceId;
+                reserve.IsVoided = true;
+
+                db.Entry(reserve).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Errors = voidedTr.ProcessorResponse.Messages;
+            return View("Delete", reserve);
         }
 
         protected override void Dispose(bool disposing)

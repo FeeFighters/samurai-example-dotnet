@@ -6,7 +6,18 @@
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+@if (ViewBag.Errors != null)
+{   
+    <h3>Errors:</h3>
+    <ul>
+    @foreach (Samurai.Message msg in ViewBag.Errors)
+    {
+        <li>(@msg.Subclass) @msg.Context : @msg.Key</li>
+    }
+    </ul>
+}
+
+<h3>Are you sure you want to void this?</h3>
 <fieldset>
     <legend>Reserve</legend>
 
