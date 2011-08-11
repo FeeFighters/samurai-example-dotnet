@@ -62,5 +62,48 @@ namespace SamuraiStore.Controllers
             return View(thing);
         }
 
+        //
+        // GET: /Store/Reserve/1
+
+        public ActionResult Reserve(int id)
+        {
+            var thing = db.Things.Find(id);
+            ViewData["methods"] = new SelectList(db.Methods.ToList(), "Token", "Token");
+
+            return View(thing);
+        }
+
+        //
+        // POST: /Store/Reserve
+
+        [HttpPost]
+        public ActionResult Reserve(int thingId, string token)
+        {
+            var thing = db.Things.Find(thingId);
+            var transaction = Processor.TheProcessor.Authorize(token, (decimal)thing.Price,
+                string.Format("Authorize ${0} for {1} at Samurai Store", thing.Price, thing.Name));
+
+            if (transaction.ProcessorResponse.Success)
+            {
+                var reserve = new Models.Reserve()
+                {
+                    TransactionRef = transaction.ReferenceId,
+                    Thing = thing,
+                    CreatedAt = DateTime.UtcNow,
+                    IsCaptured = false,
+                    IsVoided = false,
+                    VoidingRef = string.Empty
+                };
+
+                db.Reserves.Add(reserve);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Reserves");
+            }
+
+            ViewBag.ErrorMessage = "Some errors occured, try again.";
+            return View(thing);
+        }
+
     }
 }
