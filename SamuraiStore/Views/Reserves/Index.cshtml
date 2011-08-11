@@ -1,41 +1,45 @@
 ﻿@model IEnumerable<SamuraiStore.Models.Reserve>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Reserves";
 }
 
-<h2>Index</h2>
+<h2>Reserves</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table>
     <tr>
         <th>
             Thing
         </th>
         <th>
-            CreatedAt
+            Price
         </th>
         <th>
-            TransactionRef
+            Reserved At
         </th>
         <th>
-            VoidingRef
+            Transaction
         </th>
         <th>
-            IsCaptured
+            Captured?
         </th>
         <th>
-            IsVoided
+            Voided?
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Thing.Name)
+        </td>
+        <td>
+            $@Html.DisplayFor(modelItem => item.Thing.Price)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CreatedAt)
@@ -44,18 +48,15 @@
             @Html.DisplayFor(modelItem => item.TransactionRef)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VoidingRef)
+            @if (item.IsCaptured) { <span>Yes</span> } else { <span>No</span> }   
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsCaptured)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsVoided)
+             @if (item.IsVoided) { <span>Yes</span> } else { <span>No</span> }   
         </td>
         <td>
             @Html.ActionLink("Pay", "Pay", new { id=item.ReserveId }) |
             @Html.ActionLink("Details", "Details", new { id=item.ReserveId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ReserveId })
+            @Html.ActionLink("Void", "Delete", new { id=item.ReserveId })
         </td>
     </tr>
 }
