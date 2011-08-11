@@ -92,7 +92,8 @@ namespace SamuraiStore.Controllers
                     CreatedAt = DateTime.UtcNow,
                     IsCaptured = false,
                     IsVoided = false,
-                    VoidingRef = string.Empty
+                    VoidingRef = string.Empty,
+                    CapturingRef = string.Empty
                 };
 
                 db.Reserves.Add(reserve);

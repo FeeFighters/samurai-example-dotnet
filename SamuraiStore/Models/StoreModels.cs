@@ -38,8 +38,10 @@ namespace SamuraiStore.Models
         //public int OrderId { get; set; }
 
         public DateTime CreatedAt { get; set; }
+        public DateTime? CapturedAt { get; set; }
 
         public string TransactionRef { get; set; }
+        public string CapturingRef { get; set; }
         public string VoidingRef { get; set; }
 
         public bool IsCaptured { get; set; }

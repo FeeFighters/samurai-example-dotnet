@@ -1,0 +1,37 @@
+﻿@model SamuraiStore.Models.Reserve
+
+@{
+    ViewBag.Title = "Pay";
+}
+
+<h2>Buying</h2>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <p style="color:Red">
+        @ViewBag.ErrorMessage
+    </p>
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Pay for @Html.DisplayFor(model => model.Thing.Name)</legend>
+
+        @Html.HiddenFor(model => model.ReserveId)
+        @Html.HiddenFor(model => model.ThingId)
+
+        <div class="display-label">You will pay just:</div>
+        <div class="display-field">
+            $@Html.DisplayFor(model => model.Thing.Price)
+        </div>
+
+        <p>
+            <input type="submit" value="Pay" />
+        </p>
+    </fieldset>
+}
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

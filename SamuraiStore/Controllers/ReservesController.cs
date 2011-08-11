@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SamuraiStore.Models;
+using Samurai;
 
 namespace SamuraiStore.Controllers
 { 
@@ -58,28 +59,43 @@ namespace SamuraiStore.Controllers
         }
         
         //
-        // GET: /Reserves/Edit/5
+        // GET: /Reserves/Pay/5
  
-        public ActionResult Edit(int id)
+        public ActionResult Pay(int id)
         {
             Reserve reserve = db.Reserves.Find(id);
-            ViewBag.ThingId = new SelectList(db.Things, "ThingId", "Name", reserve.ThingId);
+            //ViewBag.ThingId = new SelectList(db.Things, "ThingId", "Name", reserve.ThingId);
             return View(reserve);
         }
 
         //
-        // POST: /Reserves/Edit/5
+        // POST: /Reserves/Pay/5
 
         [HttpPost]
-        public ActionResult Edit(Reserve reserve)
+        public ActionResult Pay(int reserveId, int thingId)
         {
+            var reserve = db.Reserves.Find(reserveId);
+
             if (ModelState.IsValid)
-            {
-                db.Entry(reserve).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            {                
+                var transaction = Transaction.Fetch(reserve.TransactionRef);
+                var capturedTr = transaction.Capture();
+
+                if (capturedTr.ProcessorResponse.Success)
+                {
+                    reserve.IsCaptured = true;
+                    reserve.CapturingRef = capturedTr.ReferenceId;
+                    reserve.CapturedAt = DateTime.UtcNow;
+
+                    db.Entry(reserve).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.ErrorMessage = "Some errors occured, try again.";
             }
-            ViewBag.ThingId = new SelectList(db.Things, "ThingId", "Name", reserve.ThingId);
+
             return View(reserve);
         }
 

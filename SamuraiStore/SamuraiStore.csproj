@@ -81,7 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Store.sdf" />
+    <Content Include="App_Data\Store11.sdf" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -214,7 +214,7 @@
     <Content Include="Views\Reserves\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Reserves\Edit.cshtml" />
+    <Content Include="Views\Reserves\Pay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Reserves\Delete.cshtml" />
