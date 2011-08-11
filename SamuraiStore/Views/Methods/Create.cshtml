@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<form action="https://api.ubergateway.com/v1/payment_methods" method="POST">
+  <fieldset>
+    <input name="redirect_url" type="hidden" value="http://localhost:3008/Methods/Register" />
+    <input name="merchant_key" type="hidden" value="@ViewData["MerchantKey"]" />
+
+    <!-- Before populating the ‘custom’ parameter, remember to escape reserved characters 
+         like <, > and & into their safe counterparts like &lt;, &gt; and &amp; -->
+    <input name="custom" type="hidden" value="Any value you want us to save with this payment method" />
+
+    <div class="display-label">First name</div>
+    <div class="display-field">
+        <input id="credit_card_first_name" name="credit_card[first_name]" type="text" value="Scooby" />
+    </div>
+
+    <div class="display-label">Last name</div>
+    <div class="display-field">
+        <input id="credit_card_last_name" name="credit_card[last_name]" type="text" value="Do" />
+    </div>
+
+    <div class="display-label">Address 1</div>
+    <div class="display-field">
+        <input id="credit_card_address_1" name="credit_card[address_1]" type="text" />
+    </div>
+
+    <div class="display-label">Address 2</div>
+    <div class="display-field">
+        <input id="credit_card_address_2" name="credit_card[address_2]" type="text" />
+    </div>
+
+    <div class="display-label">City</div>
+    <div class="display-field">
+        <input id="credit_card_city" name="credit_card[city]" type="text" value="Mystery Van" />
+    </div>
+
+    <div class="display-label">State</div>
+    <div class="display-field">
+        <input id="credit_card_state" name="credit_card[state]" type="text" value="IL" />
+    </div>
+
+    <div class="display-label">Zip</div>
+    <div class="display-field">
+        <input id="credit_card_zip" name="credit_card[zip]" type="text" value="60607" />
+    </div>
+
+    <div class="display-label">Card Type</div>
+    <div class="display-field">
+        <select id="credit_card_card_type" name="credit_card[card_type]">
+          <option value="visa">Visa</option>
+          <option value="master">MasterCard</option>
+        </select>
+    </div>
+
+    <div class="display-label">Card Number</div>
+    <div class="display-field">
+        <input id="credit_card_number" name="credit_card[card_number]" type="text" value="4111111111111111" />
+    </div>
+
+    <div class="display-label">Security Code</div>
+    <div class="display-field">
+        <input id="credit_card_verification_value" name="credit_card[cvv]" type="text" value="123" />
+    </div>
+
+    <div class="display-label">Expires on</div>
+    <div class="display-field">
+        <input id="credit_card_month" name="credit_card[expiry_month]" type="text" size="2" value="04" /> /
+        <input id="credit_card_year" name="credit_card[expiry_year]" type="text" size="4" value="2014" />
+    </div>
+
+    <div class="display-field">
+        <button type='submit'>Submit Payment Method</button>
+    </div>
+  </fieldset>
+</form>

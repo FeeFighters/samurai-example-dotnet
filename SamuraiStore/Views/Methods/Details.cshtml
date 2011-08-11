@@ -1,0 +1,110 @@
+﻿@model Samurai.PaymentMethod
+
+@{
+    ViewBag.Title = "Payment Method Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Payment Method Details</legend>
+
+    <div class="display-label">PaymentMethodToken</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PaymentMethodToken)
+    </div>
+
+    <div class="display-label">CreatedAt</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedAt)
+    </div>
+
+    <div class="display-label">UpdatedAt</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdatedAt)
+    </div>
+
+    <div class="display-label">Custom</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Custom)
+    </div>
+
+    <div class="display-label">IsRetained</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsRetained)
+    </div>
+
+    <div class="display-label">IsRedacted</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsRedacted)
+    </div>
+
+    <div class="display-label">IsSensitiveDataValid</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsSensitiveDataValid)
+    </div>
+
+    <div class="display-label">LastFourDigits</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastFourDigits)
+    </div>
+
+    <div class="display-label">CardType</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CardType)
+    </div>
+
+    <div class="display-label">FirstName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">LastName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+    <div class="display-label">ExpiryMonth</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ExpiryMonth)
+    </div>
+
+    <div class="display-label">ExpiryYear</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ExpiryYear)
+    </div>
+
+    <div class="display-label">Address1</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address1)
+    </div>
+
+    <div class="display-label">Address2</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address2)
+    </div>
+
+    <div class="display-label">City</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.City)
+    </div>
+
+    <div class="display-label">State</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.State)
+    </div>
+
+    <div class="display-label">Zip</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Zip)
+    </div>
+
+    <div class="display-label">Country</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Country)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = ViewData["id"] }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<SamuraiStore.Models.Method>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Payment Methods</h2>
+
+<table>
+    <tr>
+        <th>
+            Token
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Token)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MethodId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MethodId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MethodId })
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>

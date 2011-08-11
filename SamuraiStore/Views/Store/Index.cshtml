@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SamuraiStore.Models.Thing>
+
+@{
+    ViewBag.Title = "Store";
+}
+
+<h2>Our goods</h2>
+
+<div class="store">
+    
+    @foreach (var item in Model) {
+    <div class="store-item">
+        <span class="item-name">@Html.DisplayFor(modelItem => item.Name)</span>
+        <div class="price">
+            <span>Price: </span>
+            <span class="price">$@Html.DisplayFor(modelItem => item.Price)</span>
+        </div>
+        <div class="item-action">
+            <span class="buy-action">@Html.ActionLink("Buy", "Buy", new { id=item.ThingId })</span>
+            or
+            <span class="buy-action">@Html.ActionLink("Reserve", "Reserve", new { id=item.ThingId })</span>
+        </div>
+    </div>
+    }
+
+</div>
