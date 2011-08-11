@@ -1,0 +1,73 @@
+﻿@model SamuraiStore.Models.Reserve
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Reserve</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ThingId, "Thing")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ThingId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ThingId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedAt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedAt)
+            @Html.ValidationMessageFor(model => model.CreatedAt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TransactionRef)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TransactionRef)
+            @Html.ValidationMessageFor(model => model.TransactionRef)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VoidingRef)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VoidingRef)
+            @Html.ValidationMessageFor(model => model.VoidingRef)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsCaptured)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsCaptured)
+            @Html.ValidationMessageFor(model => model.IsCaptured)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsVoided)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsVoided)
+            @Html.ValidationMessageFor(model => model.IsVoided)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

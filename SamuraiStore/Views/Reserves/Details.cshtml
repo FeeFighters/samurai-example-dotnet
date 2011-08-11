@@ -1,0 +1,45 @@
+﻿@model SamuraiStore.Models.Reserve
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Reserve</legend>
+
+    <div class="display-label">Thing</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Thing.Name)
+    </div>
+
+    <div class="display-label">CreatedAt</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedAt)
+    </div>
+
+    <div class="display-label">TransactionRef</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TransactionRef)
+    </div>
+
+    <div class="display-label">VoidingRef</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VoidingRef)
+    </div>
+
+    <div class="display-label">IsCaptured</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsCaptured)
+    </div>
+
+    <div class="display-label">IsVoided</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsVoided)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ReserveId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

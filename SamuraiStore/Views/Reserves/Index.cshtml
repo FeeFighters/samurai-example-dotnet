@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SamuraiStore.Models.Reserve>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Thing
+        </th>
+        <th>
+            CreatedAt
+        </th>
+        <th>
+            TransactionRef
+        </th>
+        <th>
+            VoidingRef
+        </th>
+        <th>
+            IsCaptured
+        </th>
+        <th>
+            IsVoided
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Thing.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransactionRef)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VoidingRef)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCaptured)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsVoided)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReserveId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReserveId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReserveId })
+        </td>
+    </tr>
+}
+
+</table>

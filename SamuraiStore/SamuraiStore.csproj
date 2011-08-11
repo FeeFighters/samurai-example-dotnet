@@ -70,6 +70,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MethodsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ReservesController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\ThingsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -202,6 +203,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Store\Reserve.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reserves\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reserves\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reserves\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reserves\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reserves\Delete.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
