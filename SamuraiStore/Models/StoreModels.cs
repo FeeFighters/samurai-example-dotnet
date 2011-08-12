@@ -29,13 +29,15 @@ namespace SamuraiStore.Models
         public bool IsCredited { get; set; }
 
         public virtual Thing Thing { get; set; }
+
+        public bool CanBeCredited { get { return !IsCredited; } }
+        public bool CanBeVoided { get { return false; } }
     }
 
     public class Reserve
     {
         public int ReserveId { get; set; }
         public int ThingId { get; set; }
-        //public int OrderId { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public DateTime? CapturedAt { get; set; }
@@ -48,7 +50,6 @@ namespace SamuraiStore.Models
         public bool IsVoided { get; set; }
 
         public virtual Thing Thing { get; set; }
-        //public virtual Order Order { get; set; }
 
         public bool CanBePaid { get { return !(IsCaptured || IsVoided); } }
         public bool CanBeVoided { get { return !IsVoided; } }

@@ -39,10 +39,10 @@
             @Html.DisplayFor(modelItem => item.Thing.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Thing.Price)
+            $@Html.DisplayFor(modelItem => item.Thing.Price)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
+            @item.CreatedAt.ToString("d-MMM-yyyy HH:mm")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TransactionRef)
@@ -51,7 +51,7 @@
             @Html.DisplayFor(modelItem => item.CreditRef)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsCredited)
+            @if (item.IsCredited) { <span>Yes</span> } else { <span>No</span> }   
         </td>
         <td>
             @Html.ActionLink("Details", "Details", new { id=item.OrderId }) |
