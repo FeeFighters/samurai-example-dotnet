@@ -54,9 +54,13 @@
              @if (item.IsVoided) { <span>Yes</span> } else { <span>No</span> }   
         </td>
         <td>
-            @Html.ActionLink("Pay", "Pay", new { id=item.ReserveId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ReserveId }) |
-            @Html.ActionLink("Void", "Delete", new { id=item.ReserveId })
+            @if (item.CanBePaid) {
+                @Html.ActionLink("Pay", "Pay", new { id=item.ReserveId })
+            } else { <span>Pay</span> } |
+            @if (item.CanBeVoided) {
+                @Html.ActionLink("Void", "Delete", new { id = item.ReserveId })
+            } else { <span>Void</span> } |
+            @Html.ActionLink("Details", "Details", new { id=item.ReserveId })
         </td>
     </tr>
 }

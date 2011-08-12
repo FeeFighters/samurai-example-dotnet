@@ -49,6 +49,9 @@ namespace SamuraiStore.Models
 
         public virtual Thing Thing { get; set; }
         //public virtual Order Order { get; set; }
+
+        public bool CanBePaid { get { return !(IsCaptured || IsVoided); } }
+        public bool CanBeVoided { get { return !IsVoided; } }
     }
 
     public class Method
