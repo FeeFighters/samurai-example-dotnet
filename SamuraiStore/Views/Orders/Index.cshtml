@@ -16,16 +16,19 @@
             Thing
         </th>
         <th>
-            CreatedAt
+            Price
         </th>
         <th>
-            TransactionRef
+            Created At
         </th>
         <th>
-            CreditRef
+            Transaction
         </th>
         <th>
-            IsCredited
+            Credit
+        </th>
+        <th>
+            Credited?
         </th>
         <th></th>
     </tr>
@@ -34,6 +37,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Thing.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Thing.Price)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CreatedAt)
