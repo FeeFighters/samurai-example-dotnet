@@ -32,14 +32,7 @@ namespace SamuraiStore.Models
 
         public virtual Thing Thing { get; set; }
 
-        public bool CanBeCredited 
-        { 
-            get 
-            {
-                var date = new DateTime(CreatedAt.Year, CreatedAt.Month, CreatedAt.Day);
-                return !IsCredited && !IsVoided && (date < DateTime.UtcNow); 
-            } 
-        }
+        public bool CanBeCredited { get { return CanBeVoided && (CreatedAt.Date < DateTime.UtcNow.Date); } }
         public bool CanBeVoided { get { return !(IsCredited || IsVoided); } }
     }
 
