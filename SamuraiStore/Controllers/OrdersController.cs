@@ -118,6 +118,39 @@ namespace SamuraiStore.Controllers
         }
 
         //
+        // GET: /Orders/Credit/5
+
+        public ActionResult Credit(int id)
+        {
+            Order order = db.Orders.Find(id);
+            return View(order);
+        }
+
+        //
+        // POST: /Orders/Credit/5
+
+        [HttpPost, ActionName("Credit")]
+        public ActionResult CreditConfirmed(int id)
+        {
+            Order order = db.Orders.Find(id);
+            var transaction = Transaction.Fetch(order.TransactionRef);
+            var creditedTr = transaction.Credit();
+
+            if (creditedTr.ProcessorResponse.Success)
+            {
+                order.CreditRef = creditedTr.ReferenceId;
+                order.IsCredited = true;
+
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Errors = creditedTr.ProcessorResponse.Messages;
+            return View("Delete", order);
+        }
+
+        //
         // GET: /Orders/Delete/5
  
         public ActionResult Delete(int id)
