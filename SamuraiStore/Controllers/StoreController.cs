@@ -26,7 +26,7 @@ namespace SamuraiStore.Controllers
         public ActionResult Buy(int id)
         {
             var thing = db.Things.Find(id);
-            ViewData["methods"] = new SelectList(db.Methods.ToList(), "Token", "Token");
+            ViewData["methods"] = new SelectList(db.Methods.ToList(), "Token", "MethodName");
             
             return View(thing);
         }
@@ -58,7 +58,10 @@ namespace SamuraiStore.Controllers
                 return RedirectToAction("Index", "Orders");
             }
 
-            ViewBag.ErrorMessage = "Some errors occured, try again.";
+            ViewBag.Errors = transaction.ProcessorResponse.Messages.Select(x => 
+                string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
+
+            ViewData["methods"] = new SelectList(db.Methods.ToList(), "Token", "MethodName");
             return View(thing);
         }
 
