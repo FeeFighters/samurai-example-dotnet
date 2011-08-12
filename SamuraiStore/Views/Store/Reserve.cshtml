@@ -6,11 +6,12 @@
 
 <h2>Reserving</h2>
 
-@if (ViewBag.ErrorMessage != null)
+@if (ViewBag.Errors != null)
 {
-    <p style="color:Red">
-        @ViewBag.ErrorMessage
-    </p>
+    foreach (string err in ViewBag.Errors)
+    {
+    <h3 style="color:Red">@err</h3>
+    }
 }
 
 @using (Html.BeginForm()) {
