@@ -20,7 +20,7 @@ namespace SamuraiStore.Controllers
         public ViewResult Index()
         {
             var reserves = db.Reserves.Include(r => r.Thing);
-            return View(reserves.ToList());
+            return View(reserves.OrderByDescending(x => x.CreatedAt).ToList());
         }
 
         //
