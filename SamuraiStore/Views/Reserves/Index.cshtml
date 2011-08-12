@@ -42,7 +42,7 @@
             $@Html.DisplayFor(modelItem => item.Thing.Price)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
+            @item.CreatedAt.ToString("d-MMM-yyyy HH:mm")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TransactionRef)
