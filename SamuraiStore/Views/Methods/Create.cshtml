@@ -1,8 +1,16 @@
 ﻿@{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Payment Method";
 }
 
-<h2>Create</h2>
+<h2>Create Payment Method</h2>
+
+@if (ViewBag.Errors != null)
+{
+    foreach (string err in ViewBag.Errors)
+    {
+    <h3 style="color:Red">@err</h3>
+    }
+}
 
 <form action="https://api.ubergateway.com/v1/payment_methods" method="POST">
   <fieldset>
@@ -11,7 +19,12 @@
 
     <!-- Before populating the ‘custom’ parameter, remember to escape reserved characters 
          like <, > and & into their safe counterparts like &lt;, &gt; and &amp; -->
-    <input name="custom" type="hidden" value="Any value you want us to save with this payment method" />
+    @*<input name="custom" type="hidden" value="Any value you want us to save with this payment method" />*@
+
+    <div class="display-label">Payment Method Name (please fill this field in order to recognize this payment method later)</div>
+    <div class="display-field">
+        <input id="custom" name="custom" type="text" value="Scooby Do's credit card" />
+    </div>
 
     <div class="display-label">First name</div>
     <div class="display-field">

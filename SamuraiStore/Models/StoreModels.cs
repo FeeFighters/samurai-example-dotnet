@@ -55,6 +55,8 @@ namespace SamuraiStore.Models
     {
         public int MethodId { get; set; }
         public string Token { get; set; }
+        public string HolderName { get; set; }
+        public string MethodName { get; set; }
     }
 
     public class StoreContext : DbContext

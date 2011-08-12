@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SamuraiStore.Models;
 using Samurai;
+using System.Data;
 
 namespace SamuraiStore.Controllers
 {
@@ -35,10 +36,23 @@ namespace SamuraiStore.Controllers
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult Register(string payment_method_token)
         {
-            db.Methods.Add(new Method { Token = payment_method_token });
-            db.SaveChanges();
+            var paymentMethod = Samurai.PaymentMethod.Fetch(payment_method_token);
+            if (paymentMethod.IsSensitiveDataValid)
+            {
+                db.Methods.Add(new Method
+                {
+                    Token = payment_method_token,
+                    MethodName = paymentMethod.Custom,
+                    HolderName = string.Format("{0} {1}", paymentMethod.FirstName, paymentMethod.LastName)
+                });
+                db.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+
+            ViewData["MerchantKey"] = Samurai.Samurai.MerchantKey;
+            ViewBag.Errors = new List<string>() { "Sensitive data is invalid, please fill correct data." };
+            return View("Create");
         }
 
         //
@@ -72,6 +86,13 @@ namespace SamuraiStore.Controllers
         public ActionResult Edit(PaymentMethod paymentMethod)
         {
             paymentMethod.Update();
+
+            var method = db.Methods.First(x => x.Token == paymentMethod.PaymentMethodToken);
+            method.MethodName = paymentMethod.Custom;
+            method.HolderName = string.Format("{0} {1}", paymentMethod.FirstName, paymentMethod.LastName);
+
+            db.Entry(method).State = EntityState.Modified;
+            db.SaveChanges();
 
             return RedirectToAction("Index");
         }

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SamuraiStore.Models.Method>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Payment Methods";
 }
 
 <h2>Payment Methods</h2>
@@ -10,6 +10,12 @@
     <tr>
         <th>
             Token
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Holder's name
         </th>
         <th></th>
     </tr>
@@ -20,9 +26,15 @@
             @Html.DisplayFor(modelItem => item.Token)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.MethodName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HolderName)
+        </td>
+        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.MethodId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MethodId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MethodId })
+            @Html.ActionLink("Details", "Details", new { id=item.MethodId })
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.MethodId })*@
         </td>
     </tr>
 }

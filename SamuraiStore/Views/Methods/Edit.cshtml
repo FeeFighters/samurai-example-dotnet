@@ -23,6 +23,12 @@
         @Html.HiddenFor(model => model.LastFourDigits)
         @Html.HiddenFor(model => model.CardType)        
 
+         <div class="editor-label">Payment Method Name (please fill this field in order to recognize this payment method later)</div>
+         <div class="editor-field">
+             @Html.EditorFor(model => model.Custom)
+             @Html.ValidationMessageFor(model => model.Custom)
+         </div>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.FirstName)
         </div>
@@ -101,14 +107,6 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.Country)
             @Html.ValidationMessageFor(model => model.Country)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Custom)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Custom)
-            @Html.ValidationMessageFor(model => model.Custom)
         </div>
 
         <p>
