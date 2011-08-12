@@ -23,12 +23,9 @@
         </th>
         <th>
             Transaction
-        </th>
+        </th>        
         <th>
-            Credit
-        </th>
-        <th>
-            Credited?
+            Credit/Void
         </th>
         <th></th>
     </tr>
@@ -48,14 +45,20 @@
             @Html.DisplayFor(modelItem => item.TransactionRef)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreditRef)
+            @if (item.IsCredited)
+            { <span>Credit: (@Html.DisplayFor(modelItem => item.CreditRef))</span> }
+            else { if (item.IsVoided)
+            { <span>Void: (@Html.DisplayFor(modelItem => item.VoidRef))</span> } else 
+            { <span>None</span> } }
         </td>
         <td>
-            @if (item.IsCredited) { <span>Yes</span> } else { <span>No</span> }   
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id=item.OrderId }) |
-            @Html.ActionLink("Credit", "Credit", new { id=item.OrderId })   
+            @if (item.CanBeVoided) {
+                @Html.ActionLink("Void", "Void", new { id=item.OrderId })
+            } else { <span>Void</span> } |
+            @if (item.CanBeCredited) {
+                @Html.ActionLink("Credit", "Credit", new { id = item.OrderId })
+            } else { <span>Credit</span> } |
+            @Html.ActionLink("Details", "Details", new { id=item.OrderId })
         </td>
     </tr>
 }

@@ -25,13 +25,22 @@ namespace SamuraiStore.Models
 
         public string TransactionRef { get; set; }
         public string CreditRef { get; set; }
+        public string VoidRef { get; set; }
 
         public bool IsCredited { get; set; }
+        public bool IsVoided { get; set; }
 
         public virtual Thing Thing { get; set; }
 
-        public bool CanBeCredited { get { return !IsCredited; } }
-        public bool CanBeVoided { get { return false; } }
+        public bool CanBeCredited 
+        { 
+            get 
+            {
+                var date = new DateTime(CreatedAt.Year, CreatedAt.Month, CreatedAt.Day);
+                return !IsCredited && (date < DateTime.UtcNow); 
+            } 
+        }
+        public bool CanBeVoided { get { return !(IsCredited || IsVoided); } }
     }
 
     public class Reserve

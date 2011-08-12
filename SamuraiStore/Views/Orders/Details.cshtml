@@ -14,24 +14,34 @@
         @Html.DisplayFor(model => model.Thing.Name)
     </div>
 
-    <div class="display-label">CreatedAt</div>
+    <div class="display-label">Created At</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.CreatedAt)
     </div>
 
-    <div class="display-label">TransactionRef</div>
+    <div class="display-label">Transaction Ref</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.TransactionRef)
     </div>
 
-    <div class="display-label">CreditRef</div>
+    <div class="display-label">Credit Ref</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.CreditRef)
     </div>
 
-    <div class="display-label">IsCredited</div>
+    <div class="display-label">Void Ref</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VoidRef)
+    </div>
+
+    <div class="display-label">Credited?</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.IsCredited)
+    </div>
+
+    <div class="display-label">Voided?</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsVoided)
     </div>
 </fieldset>
 <p>
