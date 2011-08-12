@@ -1,0 +1,59 @@
+﻿@model SamuraiStore.Models.Order
+
+@{
+    ViewBag.Title = "Void";
+}
+
+<h2>Void</h2>
+
+@if (ViewBag.Errors != null)
+{   
+    <h3>Errors:</h3>
+    <ul>
+    @foreach (Samurai.Message msg in ViewBag.Errors)
+    {
+        <li>(@msg.Subclass) @msg.Context : @msg.Key</li>
+    }
+    </ul>
+}
+
+<h3>Are you sure you want to void this?</h3>
+<fieldset>
+    <legend>Order</legend>
+
+    <div class="display-label">Thing</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Thing.Name)
+    </div>
+
+    <div class="display-label">CreatedAt</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreatedAt)
+    </div>
+
+    <div class="display-label">TransactionRef</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TransactionRef)
+    </div>
+
+    <div class="display-label">VoidRef</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.VoidRef)
+    </div>
+
+    <div class="display-label">IsCredited</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsCredited)
+    </div>
+
+    <div class="display-label">IsVoided</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsVoided)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Void" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

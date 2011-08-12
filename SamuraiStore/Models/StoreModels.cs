@@ -37,7 +37,7 @@ namespace SamuraiStore.Models
             get 
             {
                 var date = new DateTime(CreatedAt.Year, CreatedAt.Month, CreatedAt.Day);
-                return !IsCredited && (date < DateTime.UtcNow); 
+                return !IsCredited && !IsVoided && (date < DateTime.UtcNow); 
             } 
         }
         public bool CanBeVoided { get { return !(IsCredited || IsVoided); } }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SamuraiStore.Models;
+using Samurai;
 
 namespace SamuraiStore.Controllers
 { 
@@ -81,6 +82,39 @@ namespace SamuraiStore.Controllers
             }
             ViewBag.ThingId = new SelectList(db.Things, "ThingId", "Name", order.ThingId);
             return View(order);
+        }
+
+        //
+        // GET: /Orders/Void/5
+
+        public ActionResult Void(int id)
+        {
+            Order order = db.Orders.Find(id);
+            return View(order);
+        }
+
+        //
+        // POST: /Orders/Void/5
+
+        [HttpPost, ActionName("Void")]
+        public ActionResult VoidConfirmed(int id)
+        {
+            Order order = db.Orders.Find(id);
+            var transaction = Transaction.Fetch(order.TransactionRef);
+            var voidedTr = transaction.Void();
+
+            if (voidedTr.ProcessorResponse.Success)
+            {
+                order.VoidRef = voidedTr.ReferenceId;
+                order.IsVoided = true;
+
+                db.Entry(order).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.Errors = voidedTr.ProcessorResponse.Messages;
+            return View("Delete", order);
         }
 
         //
