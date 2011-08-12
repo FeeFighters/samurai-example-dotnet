@@ -46,9 +46,9 @@
         </td>
         <td>
             @if (item.IsCredited)
-            { <span>Credit: (@Html.DisplayFor(modelItem => item.CreditRef))</span> }
+            { <span>Credit: @Html.DisplayFor(modelItem => item.CreditRef)</span> }
             else { if (item.IsVoided)
-            { <span>Void: (@Html.DisplayFor(modelItem => item.VoidRef))</span> } else 
+            { <span>Void: @Html.DisplayFor(modelItem => item.VoidRef)</span> } else 
             { <span>None</span> } }
         </td>
         <td>
