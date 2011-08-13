@@ -27,6 +27,7 @@ namespace SamuraiStore.Controllers
         public ActionResult Create()
         {
             ViewData["MerchantKey"] = Samurai.Samurai.MerchantKey;
+            ViewBag.RedirectUrl = string.Format("http://localhost:{0}/Methods/Register", Request.Url.Port);
             return View();
         }
 

@@ -14,7 +14,7 @@
 
 <form action="https://api.ubergateway.com/v1/payment_methods" method="POST">
   <fieldset>
-    <input name="redirect_url" type="hidden" value="http://localhost:3008/Methods/Register" />
+    <input name="redirect_url" type="hidden" value="@ViewBag.RedirectUrl" />
     <input name="merchant_key" type="hidden" value="@ViewData["MerchantKey"]" />
 
     <!-- Before populating the ‘custom’ parameter, remember to escape reserved characters 
