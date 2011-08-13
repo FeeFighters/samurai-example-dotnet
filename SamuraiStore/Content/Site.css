@@ -322,3 +322,88 @@ div#title {
 .tri-state {
     width: 6em;
 }
+
+/* Styles for store
+----------------------------------------------------------*/
+
+div.store 
+{
+    /*height: 500px;*/
+    display: table;
+}
+
+div.store-item 
+{
+    margin: 15px 15px;
+    border: 1px solid #e70;
+    float: left;
+    width: 160px;
+    /*min-height: 160px;*/
+    display: table-row;
+}
+
+span.item-name 
+{
+    font-size: 1.5em;
+    background: #f5f5f5;
+    display: block;
+    padding: 10px;
+    text-align: center;
+}
+
+div.price
+{
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.85em;
+}
+
+span.price 
+{
+    color: #f90;
+    font-weight: bolder;
+    font-size: 1.5em;
+}
+
+div.item-action
+{
+    background: #e70;
+    /*height: 80px;*/
+    padding: 10px 0;
+    color: White;
+    text-align: center;
+}
+
+span.buy-action 
+{
+    /*display: block;
+    border: 4px solid white;
+    margin: 0 auto;
+    width: 75px;
+    padding: 0 7px;
+    text-align: center;*/
+    
+}
+
+span.buy-action a 
+{
+    display: block;
+    border: 4px solid white;
+    margin: 0 auto;
+    width: 75px;
+    padding: 0 7px;
+    text-align: center;
+    
+    color: White;
+    text-decoration: none;
+    font-size: 1.4em;
+}
+
+span.buy-action a:hover
+{
+    color: #e70;
+    /*text-decoration: underline;*/
+    border: 4px solid #fa2;
+    background: #fff;
+    
+}
