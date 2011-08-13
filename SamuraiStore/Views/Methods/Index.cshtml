@@ -17,6 +17,9 @@
         <th>
             Holder's name
         </th>
+        <th>
+            Redacted?
+        </th>
         <th></th>
     </tr>
 
@@ -30,6 +33,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.HolderName)
+        </td>
+        <td>
+            @if (item.IsRedacted) { <span>Yes</span> } else { <span>No</span> }  
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.MethodId }) |

@@ -63,6 +63,9 @@ namespace SamuraiStore.Models
         public string Token { get; set; }
         public string HolderName { get; set; }
         public string MethodName { get; set; }
+        public bool IsRedacted { get; set; }
+
+        public bool CanBeRedacted { get { return !IsRedacted; } }
     }
 
     public class StoreContext : DbContext
