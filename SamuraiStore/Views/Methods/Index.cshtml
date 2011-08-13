@@ -39,8 +39,10 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.MethodId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MethodId })
-            @*@Html.ActionLink("Delete", "Delete", new { id=item.MethodId })*@
+            @Html.ActionLink("Details", "Details", new { id=item.MethodId }) |
+            @if (item.CanBeRedacted) {
+                @Html.ActionLink("Redact", "Redact", new { id = item.MethodId })
+            } else { <span>Redact</span> }
         </td>
     </tr>
 }

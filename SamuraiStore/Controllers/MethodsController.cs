@@ -97,5 +97,32 @@ namespace SamuraiStore.Controllers
 
             return RedirectToAction("Index");
         }
+
+        //
+        // GET: /Orders/Redact/5
+
+        public ActionResult Redact(int id)
+        {
+            var method = db.Methods.Find(id);
+            return View(method);
+        }
+
+        //
+        // POST: /Orders/Redact/5
+
+        [HttpPost, ActionName("Redact")]
+        public ActionResult RedactConfirmed(int id)
+        {
+            var method = db.Methods.Find(id);
+
+            var paymentMethod = PaymentMethod.Fetch(method.Token);
+            var redactedPM = paymentMethod.Redact();
+
+            method.IsRedacted = true;
+            db.Entry(method).State = EntityState.Modified;
+            db.SaveChanges();
+            
+            return RedirectToAction("Index");
+        }
     }
 }

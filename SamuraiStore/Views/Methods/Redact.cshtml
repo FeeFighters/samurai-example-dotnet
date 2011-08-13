@@ -1,0 +1,38 @@
+﻿@model SamuraiStore.Models.Method
+
+@{
+    ViewBag.Title = "Redact";
+}
+
+<h2>Redact</h2>
+
+<h3>Are you sure you want to redact this payment method?</h3>
+<fieldset>
+    <legend>Payment Method</legend>
+
+    <div class="display-label">Token</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Token)
+    </div>
+
+    <div class="display-label">HolderName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HolderName)
+    </div>
+
+    <div class="display-label">MethodName</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MethodName)
+    </div>
+
+    <div class="display-label">IsRedacted</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsRedacted)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Redact" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
