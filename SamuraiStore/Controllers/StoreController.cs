@@ -26,7 +26,7 @@ namespace SamuraiStore.Controllers
         public ActionResult Buy(int id)
         {
             var thing = db.Things.Find(id);
-            ViewData["methods"] = new SelectList(db.Methods.ToList(), "Token", "MethodName");
+            ViewData["methods"] = new SelectList(db.Methods.Where(x => !x.IsRedacted).ToList(), "Token", "MethodName");
             
             return View(thing);
         }
@@ -61,7 +61,7 @@ namespace SamuraiStore.Controllers
             ViewBag.Errors = transaction.ProcessorResponse.Messages.Select(x => 
                 string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
 
-            ViewData["methods"] = new SelectList(db.Methods.ToList(), "Token", "MethodName");
+            ViewData["methods"] = new SelectList(db.Methods.Where(x => !x.IsRedacted).ToList(), "Token", "MethodName");
             return View(thing);
         }
 
@@ -71,7 +71,7 @@ namespace SamuraiStore.Controllers
         public ActionResult Reserve(int id)
         {
             var thing = db.Things.Find(id);
-            ViewData["methods"] = new SelectList(db.Methods.ToList(), "Token", "MethodName");
+            ViewData["methods"] = new SelectList(db.Methods.Where(x => !x.IsRedacted).ToList(), "Token", "MethodName");
 
             return View(thing);
         }
@@ -108,7 +108,7 @@ namespace SamuraiStore.Controllers
             ViewBag.Errors = transaction.ProcessorResponse.Messages.Select(x =>
                 string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
 
-            ViewData["methods"] = new SelectList(db.Methods.ToList(), "Token", "MethodName");
+            ViewData["methods"] = new SelectList(db.Methods.Where(x => !x.IsRedacted).ToList(), "Token", "MethodName");
             return View(thing);
         }
 
