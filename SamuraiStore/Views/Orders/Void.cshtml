@@ -1,10 +1,10 @@
 ﻿@model SamuraiStore.Models.Order
 
 @{
-    ViewBag.Title = "Void";
+    ViewBag.Title = "Void transaction";
 }
 
-<h2>Void</h2>
+<h2>Void transaction for @Model.Thing.Name ($@Model.Thing.Price)</h2>
 
 @if (ViewBag.Errors != null)
 {   
@@ -26,27 +26,27 @@
         @Html.DisplayFor(model => model.Thing.Name)
     </div>
 
-    <div class="display-label">CreatedAt</div>
+    <div class="display-label">Created At</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.CreatedAt)
     </div>
 
-    <div class="display-label">TransactionRef</div>
+    <div class="display-label">Transaction Ref</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.TransactionRef)
     </div>
 
-    <div class="display-label">VoidRef</div>
+    <div class="display-label">Void Ref</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.VoidRef)
     </div>
 
-    <div class="display-label">IsCredited</div>
+    <div class="display-label">Credited?</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.IsCredited)
     </div>
 
-    <div class="display-label">IsVoided</div>
+    <div class="display-label">Voided?</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.IsVoided)
     </div>
