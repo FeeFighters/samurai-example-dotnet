@@ -31,32 +31,6 @@ namespace SamuraiStore.Controllers
             Reserve reserve = db.Reserves.Find(id);
             return View(reserve);
         }
-
-        //
-        // GET: /Reserves/Create
-
-        public ActionResult Create()
-        {
-            ViewBag.ThingId = new SelectList(db.Things, "ThingId", "Name");
-            return View();
-        } 
-
-        //
-        // POST: /Reserves/Create
-
-        [HttpPost]
-        public ActionResult Create(Reserve reserve)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Reserves.Add(reserve);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
-            }
-
-            ViewBag.ThingId = new SelectList(db.Things, "ThingId", "Name", reserve.ThingId);
-            return View(reserve);
-        }
         
         //
         // GET: /Reserves/Pay/5
@@ -64,7 +38,6 @@ namespace SamuraiStore.Controllers
         public ActionResult Pay(int id)
         {
             Reserve reserve = db.Reserves.Find(id);
-            //ViewBag.ThingId = new SelectList(db.Things, "ThingId", "Name", reserve.ThingId);
             return View(reserve);
         }
 
@@ -100,19 +73,19 @@ namespace SamuraiStore.Controllers
         }
 
         //
-        // GET: /Reserves/Delete/5
+        // GET: /Reserves/Void/5
  
-        public ActionResult Delete(int id)
+        public ActionResult Void(int id)
         {
             Reserve reserve = db.Reserves.Find(id);
             return View(reserve);
         }
 
         //
-        // POST: /Reserves/Delete/5
+        // POST: /Reserves/Void/5
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost, ActionName("Void")]
+        public ActionResult VoidConfirmed(int id)
         {            
             Reserve reserve = db.Reserves.Find(id);
             var transaction = Transaction.Fetch(reserve.TransactionRef);
@@ -129,7 +102,7 @@ namespace SamuraiStore.Controllers
             }
 
             ViewBag.Errors = voidedTr.ProcessorResponse.Messages;
-            return View("Delete", reserve);
+            return View("Void", reserve);
         }
 
         protected override void Dispose(bool disposing)

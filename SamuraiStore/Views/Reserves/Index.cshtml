@@ -58,7 +58,7 @@
                 @Html.ActionLink("Pay", "Pay", new { id=item.ReserveId })
             } else { <span>Pay</span> } |
             @if (item.CanBeVoided) {
-                @Html.ActionLink("Void", "Delete", new { id = item.ReserveId })
+                @Html.ActionLink("Void", "Void", new { id = item.ReserveId })
             } else { <span>Void</span> } |
             @Html.ActionLink("Details", "Details", new { id=item.ReserveId })
         </td>
