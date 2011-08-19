@@ -47,7 +47,8 @@ namespace SamuraiStore.Controllers
             {
                 // process order
                 var transaction = Processor.TheProcessor.Purchase(payment_method_token, (decimal)thing.Price,
-                    string.Format("Buying {0} for {1} at Samurai Store", thing.Name, thing.Price));
+                    string.Format("Buying {0} for {1} at Samurai Store", thing.Name, thing.Price),
+                    customer_reference:"1234", billing_reference:"12345678");
 
                 if (transaction.ProcessorResponse.Success)
                 {
@@ -145,7 +146,8 @@ namespace SamuraiStore.Controllers
             {
                 // process reserving
                 var transaction = Processor.TheProcessor.Authorize(payment_method_token, (decimal)thing.Price,
-                    string.Format("Authorize ${0} for {1} at Samurai Store", thing.Price, thing.Name));
+                    string.Format("Authorize ${0} for {1} at Samurai Store", thing.Price, thing.Name),
+                    customer_reference: "1234", billing_reference: "12345678");
 
                 if (transaction.ProcessorResponse.Success)
                 {
