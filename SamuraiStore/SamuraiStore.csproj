@@ -207,7 +207,7 @@
     <Content Include="Views\Reserves\Pay.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Reserves\Delete.cshtml" />
+    <Content Include="Views\Reserves\Void.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Orders\Void.cshtml" />
