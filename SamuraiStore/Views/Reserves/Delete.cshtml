@@ -1,10 +1,10 @@
 ﻿@model SamuraiStore.Models.Reserve
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Void transaction";
 }
 
-<h2>Delete</h2>
+<h2>Void transaction for @Model.Thing.Name ($@Model.Thing.Price)</h2>
 
 @if (ViewBag.Errors != null)
 {   
@@ -17,7 +17,7 @@
     </ul>
 }
 
-<h3>Are you sure you want to void this?</h3>
+<h3>Are you sure you want to void this transaction?</h3>
 <fieldset>
     <legend>Reserve</legend>
 
@@ -26,34 +26,34 @@
         @Html.DisplayFor(model => model.Thing.Name)
     </div>
 
-    <div class="display-label">CreatedAt</div>
+    <div class="display-label">Created At</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.CreatedAt)
     </div>
 
-    <div class="display-label">TransactionRef</div>
+    <div class="display-label">Transaction Ref</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.TransactionRef)
     </div>
 
-    <div class="display-label">VoidingRef</div>
+    <div class="display-label">Void Ref</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.VoidingRef)
     </div>
 
-    <div class="display-label">IsCaptured</div>
+    <div class="display-label">Captured?</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.IsCaptured)
     </div>
 
-    <div class="display-label">IsVoided</div>
+    <div class="display-label">Voided?</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.IsVoided)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        <input type="submit" value="Delete" /> |
+        <input type="submit" value="Void" /> |
         @Html.ActionLink("Back to List", "Index")
     </p>
 }
