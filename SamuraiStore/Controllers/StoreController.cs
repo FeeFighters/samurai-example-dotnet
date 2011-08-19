@@ -45,15 +45,6 @@ namespace SamuraiStore.Controllers
             var paymentMethod = Samurai.PaymentMethod.Fetch(payment_method_token);
             if (paymentMethod.IsSensitiveDataValid)
             {
-                // save pm
-                db.Methods.Add(new Method
-                {
-                    Token = payment_method_token,
-                    MethodName = paymentMethod.Custom,
-                    HolderName = string.Format("{0} {1}", paymentMethod.FirstName, paymentMethod.LastName)
-                });
-                db.SaveChanges();
-
                 // process order
                 var transaction = Processor.TheProcessor.Purchase(payment_method_token, (decimal)thing.Price,
                     string.Format("Buying {0} for {1} at Samurai Store", thing.Name, thing.Price));
