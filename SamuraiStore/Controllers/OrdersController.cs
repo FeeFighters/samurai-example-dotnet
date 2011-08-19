@@ -19,7 +19,7 @@ namespace SamuraiStore.Controllers
 
         public ViewResult Index()
         {
-            var orders = db.Orders.Include(o => o.Thing);
+            var orders = db.Orders.OrderByDescending(x => x.CreatedAt).Include(o => o.Thing);
             return View(orders.ToList());
         }
 
