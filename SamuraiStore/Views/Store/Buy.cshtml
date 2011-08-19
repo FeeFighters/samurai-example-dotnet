@@ -4,7 +4,7 @@
     ViewBag.Title = "Buy";
 }
 
-<h2>Buying</h2>
+<h2>Buy @Model.Name for $@Model.Price</h2>
 
 @if (ViewBag.Errors != null)
 {
@@ -14,28 +14,80 @@
     }
 }
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Buy @Html.DisplayFor(model => model.Name)</legend>
+<form action="https://api.ubergateway.com/v1/payment_methods" method="POST">
+  <fieldset>
+    <input name="redirect_url" type="hidden" value="@ViewBag.RedirectUrl" />
+    <input name="merchant_key" type="hidden" value="@ViewData["MerchantKey"]" />
 
-        @Html.HiddenFor(model => model.ThingId)
+    <div class="display-label">Payment Method Name (please fill this field in order to recognize this payment method later)</div>
+    <div class="display-field">
+        <input id="custom" name="custom" type="text" value="Scooby Do's credit card" />
+    </div>
 
-        <div class="display-label">Select payment method:</div>
-        <div class="display-field">
-            @Html.DropDownList("token", (IEnumerable<SelectListItem>)ViewData["methods"])
-        </div>
+    <div class="display-label">First name</div>
+    <div class="display-field">
+        <input id="credit_card_first_name" name="credit_card[first_name]" type="text" value="Scooby" />
+    </div>
 
-        <div class="display-label">Buy this great thing just for:</div>
-        <div class="display-field">
-            $@Html.DisplayFor(model => model.Price)
-        </div>
+    <div class="display-label">Last name</div>
+    <div class="display-field">
+        <input id="credit_card_last_name" name="credit_card[last_name]" type="text" value="Do" />
+    </div>
 
-        <p>
-            <input type="submit" value="Buy" />
-        </p>
-    </fieldset>
-}
+    <div class="display-label">Address 1</div>
+    <div class="display-field">
+        <input id="credit_card_address_1" name="credit_card[address_1]" type="text" />
+    </div>
+
+    <div class="display-label">Address 2</div>
+    <div class="display-field">
+        <input id="credit_card_address_2" name="credit_card[address_2]" type="text" />
+    </div>
+
+    <div class="display-label">City</div>
+    <div class="display-field">
+        <input id="credit_card_city" name="credit_card[city]" type="text" value="Mystery Van" />
+    </div>
+
+    <div class="display-label">State</div>
+    <div class="display-field">
+        <input id="credit_card_state" name="credit_card[state]" type="text" value="IL" />
+    </div>
+
+    <div class="display-label">Zip</div>
+    <div class="display-field">
+        <input id="credit_card_zip" name="credit_card[zip]" type="text" value="60607" />
+    </div>
+
+    <div class="display-label">Card Type</div>
+    <div class="display-field">
+        <select id="credit_card_card_type" name="credit_card[card_type]">
+          <option value="visa">Visa</option>
+          <option value="master">MasterCard</option>
+        </select>
+    </div>
+
+    <div class="display-label">Card Number</div>
+    <div class="display-field">
+        <input id="credit_card_number" name="credit_card[card_number]" type="text" value="4111111111111111" />
+    </div>
+
+    <div class="display-label">Security Code</div>
+    <div class="display-field">
+        <input id="credit_card_verification_value" name="credit_card[cvv]" type="text" value="123" />
+    </div>
+
+    <div class="display-label">Expires on</div>
+    <div class="display-field">
+        <input id="credit_card_month" name="credit_card[expiry_month]" type="text" size="2" value="04" /> /
+        <input id="credit_card_year" name="credit_card[expiry_year]" type="text" size="4" value="2014" />
+    </div>
+
+    <div class="display-field">
+        <button type='submit'>Submit</button>
+    </div>
+  </fieldset>
+</form>
 
 <p>
     @Html.ActionLink("Back to List", "Index")

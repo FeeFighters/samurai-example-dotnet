@@ -26,9 +26,69 @@ namespace SamuraiStore.Controllers
         public ActionResult Buy(int id)
         {
             var thing = db.Things.Find(id);
+            ViewData["MerchantKey"] = Samurai.Samurai.MerchantKey;
+            ViewBag.RedirectUrl = string.Format("http://{0}:{1}/Store/BuyConfirmed/{2}", Request.Url.Host, Request.Url.Port, id);
             ViewData["methods"] = new SelectList(db.Methods.Where(x => !x.IsRedacted).ToList(), "Token", "MethodName");
             
             return View(thing);
+        }
+
+        //
+        // GET, POST: /Store/BuyConfirmed/1
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult BuyConfirmed(int id, string payment_method_token)
+        {
+            var thing = db.Things.Find(id);
+
+            // process pm
+            var paymentMethod = Samurai.PaymentMethod.Fetch(payment_method_token);
+            if (paymentMethod.IsSensitiveDataValid)
+            {
+                // save pm
+                db.Methods.Add(new Method
+                {
+                    Token = payment_method_token,
+                    MethodName = paymentMethod.Custom,
+                    HolderName = string.Format("{0} {1}", paymentMethod.FirstName, paymentMethod.LastName)
+                });
+                db.SaveChanges();
+
+                // process order
+                var transaction = Processor.TheProcessor.Purchase(payment_method_token, (decimal)thing.Price,
+                    string.Format("Buying {0} for {1} at Samurai Store", thing.Name, thing.Price));
+
+                if (transaction.ProcessorResponse.Success)
+                {
+                    var order = new Order()
+                    {
+                        TransactionRef = transaction.ReferenceId,
+                        Thing = thing,
+                        CreatedAt = DateTime.UtcNow,
+                        IsCredited = false,
+                        CreditRef = string.Empty
+                    };
+
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index", "Orders");
+                }
+
+                // show errors of transaction
+                ViewBag.Errors = transaction.ProcessorResponse.Messages.Select(x =>
+                    string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
+                ViewData["MerchantKey"] = Samurai.Samurai.MerchantKey;
+                ViewBag.RedirectUrl = string.Format("http://{0}:{1}/Store/BuyConfirmed/{2}", Request.Url.Host, Request.Url.Port, id);
+
+                return View("Buy", thing);
+            }
+
+            // show errors of payment method
+            ViewBag.Errors = paymentMethod.Messages.Select(x => string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
+            ViewData["MerchantKey"] = Samurai.Samurai.MerchantKey;
+            ViewBag.RedirectUrl = string.Format("http://{0}:{1}/Store/BuyConfirmed/{2}", Request.Url.Host, Request.Url.Port, id);
+            return View("Buy", thing);
         }
 
         //
