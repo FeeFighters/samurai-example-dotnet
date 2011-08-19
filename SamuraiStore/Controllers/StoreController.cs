@@ -127,7 +127,6 @@ namespace SamuraiStore.Controllers
             ViewData["MerchantKey"] = Samurai.Samurai.MerchantKey;
             ViewBag.RedirectUrl = string.Format("http://{0}:{1}/Store/ReserveConfirmed/{2}", Request.Url.Host, Request.Url.Port, id);
             ViewData["methods"] = new SelectList(db.Methods.Where(x => !x.IsRedacted).ToList(), "Token", "MethodName");
-            //ViewData["methods"] = new SelectList(db.Methods.Where(x => !x.IsRedacted).ToList(), "Token", "MethodName");
 
             return View(thing);
         }
