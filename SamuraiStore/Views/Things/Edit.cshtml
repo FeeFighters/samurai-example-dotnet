@@ -31,13 +31,9 @@
             @Html.EditorFor(model => model.Price)
             @Html.ValidationMessageFor(model => model.Price)
         </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
+    </fieldset>    
+    <p>
+        <input type="submit" value="Save changes" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
