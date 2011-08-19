@@ -31,58 +31,7 @@ namespace SamuraiStore.Controllers
             Order order = db.Orders.Find(id);
             return View(order);
         }
-
-        //
-        // GET: /Orders/Create
-
-        public ActionResult Create()
-        {
-            ViewBag.ThingId = new SelectList(db.Things, "ThingId", "Name");
-            return View();
-        } 
-
-        //
-        // POST: /Orders/Create
-
-        [HttpPost]
-        public ActionResult Create(Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Orders.Add(order);
-                db.SaveChanges();
-                return RedirectToAction("Index");  
-            }
-
-            ViewBag.ThingId = new SelectList(db.Things, "ThingId", "Name", order.ThingId);
-            return View(order);
-        }
         
-        //
-        // GET: /Orders/Edit/5
- 
-        public ActionResult Edit(int id)
-        {
-            Order order = db.Orders.Find(id);
-            ViewBag.ThingId = new SelectList(db.Things, "ThingId", "Name", order.ThingId);
-            return View(order);
-        }
-
-        //
-        // POST: /Orders/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ThingId = new SelectList(db.Things, "ThingId", "Name", order.ThingId);
-            return View(order);
-        }
 
         //
         // GET: /Orders/Void/5
@@ -113,8 +62,9 @@ namespace SamuraiStore.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Errors = voidedTr.ProcessorResponse.Messages;
-            return View("Delete", order);
+            ViewBag.Errors = voidedTr.ProcessorResponse.Messages.Select(x =>
+                    string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
+            return View("Void", order);
         }
 
         //
@@ -146,29 +96,9 @@ namespace SamuraiStore.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Errors = creditedTr.ProcessorResponse.Messages;
-            return View("Delete", order);
-        }
-
-        //
-        // GET: /Orders/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            Order order = db.Orders.Find(id);
-            return View(order);
-        }
-
-        //
-        // POST: /Orders/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {            
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            ViewBag.Errors = creditedTr.ProcessorResponse.Messages.Select(x =>
+                    string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
+            return View("Credit", order);
         }
 
         protected override void Dispose(bool disposing)
