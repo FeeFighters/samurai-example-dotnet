@@ -82,13 +82,10 @@
         <input id="credit_card_month" name="credit_card[expiry_month]" type="text" size="2" value="04" /> /
         <input id="credit_card_year" name="credit_card[expiry_year]" type="text" size="4" value="2014" />
     </div>
-
-    <div class="display-field">
-        <button type='submit'>Reserve @Model.Name</button>
-    </div>
   </fieldset>
-</form>
 
-<p>
+  <p>
+    <input type='submit' value="Reserve @Model.Name" /> |
     @Html.ActionLink("Back to List", "Index")
-</p>
+  </p>
+</form>

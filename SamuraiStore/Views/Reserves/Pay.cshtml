@@ -25,13 +25,9 @@
         <div class="display-field">
             $@Html.DisplayFor(model => model.Thing.Price)
         </div>
-
-        <p>
-            <input type="submit" value="Pay" />
-        </p>
     </fieldset>
+    <p>
+        <input type="submit" value="Pay for @Model.Thing.Name" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 }
-
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
