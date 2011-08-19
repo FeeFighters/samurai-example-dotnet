@@ -10,8 +10,6 @@ namespace SamuraiStore.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to Samurai Store!";
-
             return View();
         }
     }
