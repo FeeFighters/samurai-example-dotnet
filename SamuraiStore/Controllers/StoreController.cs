@@ -69,14 +69,15 @@ namespace SamuraiStore.Controllers
                 // show errors of transaction
                 ViewBag.Errors = transaction.ProcessorResponse.Messages.Select(x =>
                     string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
-                ViewData["MerchantKey"] = Samurai.Samurai.MerchantKey;
-                ViewBag.RedirectUrl = string.Format("http://{0}:{1}/Store/BuyConfirmed/{2}", Request.Url.Host, Request.Url.Port, id);
-
-                return View("Buy", thing);
+            }
+            else
+            {
+                // show errors of payment method
+                ViewBag.Errors = paymentMethod.Messages.Select(x => 
+                    string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
             }
 
-            // show errors of payment method
-            ViewBag.Errors = paymentMethod.Messages.Select(x => string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
+            
             ViewData["MerchantKey"] = Samurai.Samurai.MerchantKey;
             ViewBag.RedirectUrl = string.Format("http://{0}:{1}/Store/BuyConfirmed/{2}", Request.Url.Host, Request.Url.Port, id);
             return View("Buy", thing);
@@ -122,9 +123,64 @@ namespace SamuraiStore.Controllers
         public ActionResult Reserve(int id)
         {
             var thing = db.Things.Find(id);
+            ViewData["MerchantKey"] = Samurai.Samurai.MerchantKey;
+            ViewBag.RedirectUrl = string.Format("http://{0}:{1}/Store/ReserveConfirmed/{2}", Request.Url.Host, Request.Url.Port, id);
             ViewData["methods"] = new SelectList(db.Methods.Where(x => !x.IsRedacted).ToList(), "Token", "MethodName");
+            //ViewData["methods"] = new SelectList(db.Methods.Where(x => !x.IsRedacted).ToList(), "Token", "MethodName");
 
             return View(thing);
+        }
+
+        //
+        // GET, POST: /Store/ReserveConfirmed/1
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult ReserveConfirmed(int id, string payment_method_token)
+        {
+            var thing = db.Things.Find(id);
+
+            // process pm
+            var paymentMethod = Samurai.PaymentMethod.Fetch(payment_method_token);
+            if (paymentMethod.IsSensitiveDataValid)
+            {
+                // process reserving
+                var transaction = Processor.TheProcessor.Authorize(payment_method_token, (decimal)thing.Price,
+                    string.Format("Authorize ${0} for {1} at Samurai Store", thing.Price, thing.Name));
+
+                if (transaction.ProcessorResponse.Success)
+                {
+                    var reserve = new Models.Reserve()
+                    {
+                        TransactionRef = transaction.ReferenceId,
+                        Thing = thing,
+                        CreatedAt = DateTime.UtcNow,
+                        IsCaptured = false,
+                        IsVoided = false,
+                        VoidingRef = string.Empty,
+                        CapturingRef = string.Empty
+                    };
+
+                    db.Reserves.Add(reserve);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index", "Reserves");
+                }
+
+                // show errors of transaction
+                ViewBag.Errors = transaction.ProcessorResponse.Messages.Select(x =>
+                    string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
+            }
+            else
+            {
+                // show errors of payment method
+                ViewBag.Errors = paymentMethod.Messages.Select(x =>
+                    string.Format("({0}) {1}: {2}", x.Subclass, x.Context, x.Key)).ToList();
+            }
+
+
+            ViewData["MerchantKey"] = Samurai.Samurai.MerchantKey;
+            ViewBag.RedirectUrl = string.Format("http://{0}:{1}/Store/ReserveConfirmed/{2}", Request.Url.Host, Request.Url.Port, id);
+            return View("Reserve", thing);
         }
 
         //
