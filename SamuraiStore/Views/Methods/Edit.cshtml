@@ -1,7 +1,7 @@
 ﻿@model Samurai.PaymentMethod
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Payment Method";
 }
 
 <h2>Edit</h2>
@@ -12,7 +12,7 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
-        <legend>PaymentMethod</legend>
+        <legend>Payment Method</legend>
 
         @Html.HiddenFor(model => model.PaymentMethodToken)
         @Html.HiddenFor(model => model.CreatedAt)
